@@ -2,12 +2,15 @@
   "scripts": {
     "start": "vercel dev",
     "deploy": "vercel",
-    "generate": "drizzle-kit generate:pg"
+    "generate": "drizzle-kit generate:pg",
+    "studio": "drizzle-kit studio"
   },
   "dependencies": {
     "@vercel/postgres": "^0.5.1",
+    "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
-    "hono": "^3.9.2"
+    "hono": "^3.9.2",
+    "pg": "^8.11.3"
   },
   "devDependencies": {
     "drizzle-kit": "^0.19.13",
