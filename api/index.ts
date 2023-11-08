@@ -3,7 +3,7 @@ import { handle } from 'hono/vercel'
 import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import * as schema from '../db/schema';
-import { desc, eq, gt, lt } from 'drizzle-orm';
+import { desc, eq, gt } from 'drizzle-orm';
 
 export const config = {
   runtime: 'edge',
@@ -39,9 +39,9 @@ app.get('/attack/current', async (c) => {
   // const response = await fetch("http://worldtimeapi.org/api/timezone/Europe/London")
   // const time: Time = await response.json()
   
-  const result = await db.query.attack_schedule.findFirst({
-    orderBy: desc(schema.attack_schedule.start),
-    where: eq(schema.attack_schedule.in_progress, true),
+  const result = await db.query.attacks.findFirst({
+    orderBy: desc(schema.attacks.start),
+    where: eq(schema.attacks.in_progress, true),
   })
 
   return c.json(result || {})
@@ -52,9 +52,9 @@ app.get("/attack/next", async (c) => {
   const response = await fetch("http://worldtimeapi.org/api/timezone/Europe/London")
   const time: Time = await response.json()
   
-  const result = await db.query.attack_schedule.findFirst({
-    orderBy: desc(schema.attack_schedule.id),
-    where: gt(schema.attack_schedule.start, new Date(time.datetime)),
+  const result = await db.query.attacks.findFirst({
+    orderBy: desc(schema.attacks.id),
+    where: gt(schema.attacks.start, new Date(time.datetime)),
     columns: {
       start: true
     }

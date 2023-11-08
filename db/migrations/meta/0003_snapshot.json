@@ -1,0 +1,200 @@
+{
+  "version": "5",
+  "dialect": "pg",
+  "id": "67a6bc5a-0909-4673-bee7-374b74a67452",
+  "prevId": "36b7da25-8e55-45cc-8741-1b38db4a96f3",
+  "tables": {
+    "attacks": {
+      "name": "attacks",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "'attack_Q4fHtTLcLEQC3M9F'"
+        },
+        "created": {
+          "name": "created",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "start": {
+          "name": "start",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "duration": {
+          "name": "duration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 300
+        },
+        "in_progress": {
+          "name": "in_progress",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "payload": {
+          "name": "payload",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "attacks_in_progress_unique": {
+          "name": "attacks_in_progress_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "in_progress"
+          ]
+        }
+      }
+    },
+    "devices": {
+      "name": "devices",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "'board_McnzNvQ1xY3ey4ha'"
+        },
+        "created": {
+          "name": "created",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "last_seen": {
+          "name": "last_seen",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "device_type": {
+          "name": "device_type",
+          "type": "device_type",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'pico-w'"
+        },
+        "device_state": {
+          "name": "device_state",
+          "type": "device_state",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'never_connected'"
+        },
+        "api_key": {
+          "name": "api_key",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "'sk_api_EvVux8rnJkPcaRBs66TylueO'"
+        },
+        "trusted": {
+          "name": "trusted",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "events": {
+      "name": "events",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "'event_PF2XIAwR6W9OzIBF'"
+        },
+        "device_id": {
+          "name": "device_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "attack_id": {
+          "name": "attack_id",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "created": {
+          "name": "created",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "event_type": {
+          "name": "event_type",
+          "type": "event_type",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "device_state": {
+      "name": "device_state",
+      "values": {
+        "idle": "idle",
+        "offline": "offline",
+        "attacking": "attacking",
+        "never_connected": "never_connected"
+      }
+    },
+    "device_type": {
+      "name": "device_type",
+      "values": {
+        "pico": "pico",
+        "pico-w": "pico-w"
+      }
+    },
+    "event_type": {
+      "name": "event_type",
+      "values": {
+        "payload_exec": "payload_exec",
+        "boot_up": "boot_up",
+        "new_device": "new_device"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {
+      "\"attack_schedule\"": "\"attacks\""
+    },
+    "columns": {}
+  }
+}

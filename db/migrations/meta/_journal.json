@@ -22,6 +22,13 @@
       "when": 1699472872016,
       "tag": "0002_special_sister_grimm",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1699481041509,
+      "tag": "0003_smart_harrier",
+      "breakpoints": true
     }
   ]
 }
