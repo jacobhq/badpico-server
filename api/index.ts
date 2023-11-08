@@ -43,7 +43,8 @@ app.get('/attack/current', async (c) => {
     orderBy: desc(schema.attack_schedule.start),
     where: eq(schema.attack_schedule.in_progress, true),
   })
-  return c.json(result)
+
+  return c.json(result || {})
 })
 
 app.get("/attack/next", async (c) => {
@@ -58,7 +59,7 @@ app.get("/attack/next", async (c) => {
       start: true
     }
   })
-  return c.json(result)
+  return c.json(result || {})
 })
 
 app.get('/time', async (c) => {
