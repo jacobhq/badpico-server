@@ -3,7 +3,7 @@ import { handle } from 'hono/vercel'
 import { sql } from '@vercel/postgres';
 import { drizzle } from 'drizzle-orm/vercel-postgres';
 import * as schema from '../db/schema';
-import { desc, gt, lt } from 'drizzle-orm';
+import { desc, eq, gt, lt } from 'drizzle-orm';
 
 export const config = {
   runtime: 'edge',
@@ -31,19 +31,22 @@ type Time = {
 const app = new Hono().basePath('/api')
 const db = drizzle(sql, { schema })
 
-app.get('/', async (c) => {
-  // Get latest attack where start time is in past
-  const response = await fetch("http://worldtimeapi.org/api/timezone/Europe/London")
-  const time: Time = await response.json()
+app.get("/", (c) => c.redirect("/api/attack/current"))
+
+app.get('/attack/current', async (c) => {
+  // Get current attack
+  // TODO - implement scheduling
+  // const response = await fetch("http://worldtimeapi.org/api/timezone/Europe/London")
+  // const time: Time = await response.json()
   
   const result = await db.query.attack_schedule.findFirst({
-    orderBy: desc(schema.attack_schedule.id),
-    where: lt(schema.attack_schedule.start, new Date(time.datetime))
+    orderBy: desc(schema.attack_schedule.start),
+    where: eq(schema.attack_schedule.in_progress, true),
   })
   return c.json(result)
 })
 
-app.get("/next", async (c) => {
+app.get("/attack/next", async (c) => {
   // Get start time ONLY of latest future attack
   const response = await fetch("http://worldtimeapi.org/api/timezone/Europe/London")
   const time: Time = await response.json()

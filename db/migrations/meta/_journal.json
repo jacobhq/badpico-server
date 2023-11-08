@@ -8,6 +8,20 @@
       "when": 1699387325910,
       "tag": "0000_rainy_weapon_omega",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1699456070172,
+      "tag": "0001_typical_hitman",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1699472872016,
+      "tag": "0002_special_sister_grimm",
+      "breakpoints": true
     }
   ]
 }
